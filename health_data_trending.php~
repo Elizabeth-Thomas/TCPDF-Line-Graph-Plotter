@@ -1,0 +1,61 @@
+<?php
+include('trending_graph_library.php');
+
+    $pdf->AddPage();
+
+
+    $arrData = array();
+
+// define old data
+    $arrData = array(
+        "title" => "bmi", //slug name
+        "data" => array(
+            array(
+                "key" => 2013,
+                "value" => 21.5,
+                "color" => "dark-grey"
+            ),
+            array(
+                "key" => 2014,
+                "value" => 18,
+                "color" => "dark-grey"
+            ),
+            array(
+                "key" => 2015,
+                "value" => 16,
+                "color" => "dark-grey"
+            ),
+            array(
+                "key" => 2016,
+                "value" => 20,
+                "color" => "dark-grey"
+            ),
+            array(
+                "key" => 2018,
+                "value" => 24,
+                "color" => "green"
+            ),
+        )
+    );
+
+    $trendingGraphConfig = $config['trendingGraphConfig'];
+    
+    $lineGraphObj = new TrendingLineGraph();
+    $yScale  =$lineGraphObj->getRangeAndExtremeTrendingValues($trendingGraphConfig,$config,$arrData);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 15, 42,
+             $arrData,$trendingGraphConfig);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 115, 42,
+             $arrData,$trendingGraphConfig);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 15, 120,
+             $arrData,$trendingGraphConfig);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 115, 120,
+             $arrData,$trendingGraphConfig);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 15, 208,
+             $arrData,$trendingGraphConfig);
+    $lineGraphObj->dataTrendingGraph($pdf,$yScale['upperYScale'],$yScale['lowerYScale'], 115, 208,
+             $arrData,$trendingGraphConfig);
+    
+  // gen pdf file
+$pdf->Output();
+
+?>
